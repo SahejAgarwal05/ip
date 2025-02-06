@@ -1,21 +1,20 @@
 package main.java;
 
-public class Task {
-    private String name;
-    private boolean completed;
+public class ToDo {
+    protected String name;
+    protected boolean completed;
 
-    public Task(String name) {
+    public ToDo(String name) {
         this.name = name;
         this.completed = false;
     }
 
-    public Task() {
+    public ToDo() {
         this.completed = false;
         this.name = "";
     }
 
     /**
-     *
      * @return name of the task
      */
     public String getName() {
@@ -24,8 +23,8 @@ public class Task {
 
     /**
      * Change name of the task
-     * @param name new name of the task
      *
+     * @param name new name of the task
      */
     public void setName(String name) {
         this.name = name;
@@ -33,6 +32,7 @@ public class Task {
 
     /**
      * check if task is completed
+     *
      * @return true for completed task and false for incomplete task
      */
     public boolean isCompleted() {
@@ -41,6 +41,7 @@ public class Task {
 
     /**
      * Change status of task
+     *
      * @param completed
      */
     public void setCompleted(boolean completed) {
@@ -50,12 +51,11 @@ public class Task {
     /**
      * Print the task for the list
      */
-    public void print() {
+    public String toString() {
         if (this.completed) {
-            System.out.print("[X] ");
+            return "[X][T] " + this.name;
         } else {
-            System.out.print("[ ] ");
+            return "[ ][T] " + this.name;
         }
-        System.out.println(this.name);
     }
 }

@@ -1,28 +1,27 @@
 package main.java;
-import main.java.Task;
 
 public class ItemsList {
-    private Task[] tasks;
+    private main.java.ToDo[] tasks;
     private int count;
 
     public ItemsList() {
         this.count = 0;
-        this.tasks = new Task[100];
+        this.tasks = new main.java.ToDo[100];
     }
 
     /**
      * Adds task to the list if there are 99 or less items
      * if there are 100 items prints List is full cannot store more than 100 items
      *
-     * @param task item to be added to the list
+     * @param todo item to be added to the list
      */
-    public void addItem(String task) {
+    public void add(ToDo todo) {
         if (this.count == 100) {
             System.out.println("\tList is full cannot store more than 100 items");
         } else {
-            this.tasks[this.count] = new Task(task);
+            this.tasks[this.count] = todo;
             this.count++;
-            System.out.println("\t" + task + " added");
+            System.out.println("\tAdded");
         }
     }
 
@@ -36,11 +35,15 @@ public class ItemsList {
         } else {
             for (int i = 0; i < this.count; i++) {
                 System.out.print("\t" + (i + 1) + ". ");
-                this.tasks[i].print();
+                System.out.println(this.tasks[i].toString());
             }
         }
     }
 
+    /**
+     * Mark item to completed
+     * @param taskNo index of the item to be marked complete
+     */
     public void mark(int taskNo) {
         if (this.count == 0 || taskNo < 0 || taskNo > this.count) {
             System.out.println("\tInvalid task number. Please enter a valid task number.");
@@ -49,9 +52,12 @@ public class ItemsList {
             System.out.println("\tMarked " + taskNo + " completed");
         }
     }
-
+    /**
+     * Mark item to incomplet
+     * @param taskNo index of the item to be marked incomplete
+     */
     public void unmark(int taskNo) {
-        if (this.count == 0 || taskNo <= 0 || taskNo >= this.count) {
+        if (this.count == 0 || taskNo <= 0 || taskNo > this.count) {
             System.out.println("\tInvalid task number. Please enter a valid task number.");
         } else {
             tasks[taskNo - 1].setCompleted(false);
