@@ -3,10 +3,12 @@ package main.java;
 public class ToDoList {
     private main.java.ToDo[] tasks;
     private int count;
-    private final int maxCount = 100;
+    private final int MAX_COUNT = 100;
+    private final String INVALID_NUMBER_MESSAGE = "\tInvalid task number. Please enter a valid task number.";
+
     public ToDoList() {
         this.count = 0;
-        this.tasks = new main.java.ToDo[this.maxCount];
+        this.tasks = new main.java.ToDo[this.MAX_COUNT];
     }
 
     /**
@@ -16,7 +18,7 @@ public class ToDoList {
      * @param todo item to be added to the list
      */
     public void add(ToDo todo) {
-        if (this.count == this.maxCount) {
+        if (this.count == this.MAX_COUNT) {
             System.out.println("\tList is full cannot store more than 100 items");
         } else {
             this.tasks[this.count] = todo;
@@ -46,7 +48,7 @@ public class ToDoList {
      */
     public void mark(int taskNo) {
         if (this.count == 0 || taskNo < 0 || taskNo > this.count) {
-            System.out.println("\tInvalid task number. Please enter a valid task number.");
+            System.out.println(INVALID_NUMBER_MESSAGE);
         } else {
             tasks[taskNo - 1].setCompleted(true);
             System.out.println("\tMarked " + taskNo + " completed");
@@ -58,7 +60,7 @@ public class ToDoList {
      */
     public void unmark(int taskNo) {
         if (this.count == 0 || taskNo <= 0 || taskNo > this.count) {
-            System.out.println("\tInvalid task number. Please enter a valid task number.");
+            System.out.println(INVALID_NUMBER_MESSAGE);
         } else {
             tasks[taskNo - 1].setCompleted(false);
             System.out.println("\tMarked " + taskNo + " incomplete");
