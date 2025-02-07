@@ -1,7 +1,5 @@
 package main.java;
 
-import main.java.ToDo;
-
 public class Deadline extends ToDo {
     private String by;
 
@@ -28,7 +26,7 @@ public class Deadline extends ToDo {
 
     @Override
     public String toString() {
-        if (this.completed) {
+        if (this.isCompleted) {
             return "[X][D] " + this.getName() + " (by: " + this.by + ")";
         } else {
             return "[ ][D] " + this.getName() + " (by: " + this.by + ")";

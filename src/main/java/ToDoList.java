@@ -1,12 +1,12 @@
 package main.java;
 
-public class ItemsList {
+public class ToDoList {
     private main.java.ToDo[] tasks;
     private int count;
-
-    public ItemsList() {
+    private final int maxCount = 100;
+    public ToDoList() {
         this.count = 0;
-        this.tasks = new main.java.ToDo[100];
+        this.tasks = new main.java.ToDo[this.maxCount];
     }
 
     /**
@@ -16,7 +16,7 @@ public class ItemsList {
      * @param todo item to be added to the list
      */
     public void add(ToDo todo) {
-        if (this.count == 100) {
+        if (this.count == this.maxCount) {
             System.out.println("\tList is full cannot store more than 100 items");
         } else {
             this.tasks[this.count] = todo;

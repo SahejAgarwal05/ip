@@ -2,15 +2,15 @@ package main.java;
 
 public class ToDo {
     protected String name;
-    protected boolean completed;
+    protected boolean isCompleted;
 
     public ToDo(String name) {
         this.name = name;
-        this.completed = false;
+        this.isCompleted = false;
     }
 
     public ToDo() {
-        this.completed = false;
+        this.isCompleted = false;
         this.name = "";
     }
 
@@ -36,7 +36,7 @@ public class ToDo {
      * @return true for completed task and false for incomplete task
      */
     public boolean isCompleted() {
-        return this.completed;
+        return this.isCompleted;
     }
 
     /**
@@ -45,14 +45,14 @@ public class ToDo {
      * @param completed
      */
     public void setCompleted(boolean completed) {
-        this.completed = completed;
+        this.isCompleted = completed;
     }
 
     /**
      * Print the task for the list
      */
     public String toString() {
-        if (this.completed) {
+        if (this.isCompleted) {
             return "[X][T] " + this.name;
         } else {
             return "[ ][T] " + this.name;

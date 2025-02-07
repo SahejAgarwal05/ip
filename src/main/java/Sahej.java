@@ -1,6 +1,5 @@
 import java.util.Scanner;
 
-import main.java.ItemsList;
 import main.java.ToDo;
 import main.java.Deadline;
 import main.java.Event;
@@ -16,7 +15,7 @@ public class Sahej {
         }
     }
 
-    public static void parseDeadline(String input, ItemsList list) {
+    public static void parseDeadline(String input, main.java.ToDoList list) {
         input = input.substring(8).trim();
         String[] split = input.split("/by");
         if (split.length != 2) {
@@ -26,7 +25,7 @@ public class Sahej {
         list.add(new Deadline(split[0].trim(), split[1].trim()));
     }
 
-    public static void parseEvent(String input, ItemsList list) {
+    public static void parseEvent(String input, main.java.ToDoList list) {
         input = input.substring(5).trim();
         String[] split = input.split("/from");
         if (split.length != 2) {
@@ -50,7 +49,7 @@ public class Sahej {
         list.add(new Event(split2[0].trim(), split[0].trim(), split2[1].trim()));
     }
 
-    public static void parseInput(String input, ItemsList list) {
+    public static void parseInput(String input, main.java.ToDoList list) {
         if (input.equals("list")) {
             list.printItems();
         } else if (input.startsWith("mark ")) {
@@ -61,6 +60,10 @@ public class Sahej {
             list.unmark(num);
         } else if (input.startsWith("todo ")) {
             input = input.substring(4).trim();
+            if (input.equals("")) {
+                System.out.println("\tInvalid input. Please try again.");
+                return;
+            }
             list.add(new ToDo(input));
         } else if (input.startsWith("deadline ")) {
             parseDeadline(input, list);
@@ -76,7 +79,7 @@ public class Sahej {
         System.out.println(horizontalLine + "\n\tHello! I'm Sahej\n\tWhat can I do for you?\n" + horizontalLine);
         Scanner inputScanner = new Scanner(System.in);
         String input = "";
-        ItemsList list = new ItemsList();
+        main.java.ToDoList list = new main.java.ToDoList();
         mainloop:
         while (true) {
             input = inputScanner.nextLine().trim(); // get trimmed user input
