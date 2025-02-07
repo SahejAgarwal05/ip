@@ -59,7 +59,7 @@ public class Sahej {
     }
 
     public static void parseInput(String input, main.java.ToDoList list) {
-        if (input.equals("list")) {
+        if (input.equals(LIST_COMMAND)) {
             list.printItems();
         } else if (input.startsWith(MARK_COMMAND)) {
             int num = getNumber(input.substring(4));
