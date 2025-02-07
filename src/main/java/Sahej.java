@@ -77,11 +77,12 @@ public class Sahej {
         Scanner inputScanner = new Scanner(System.in);
         String input = "";
         ItemsList list = new ItemsList();
+        mainloop:
         while (true) {
             input = inputScanner.nextLine().trim(); // get trimmed user input
             System.out.println(horizontalLine);
             if (input.equals("bye")) {
-                break;
+                break mainloop;
             }
             parseInput(input, list);
             System.out.println(horizontalLine + "\n");
