@@ -1,3 +1,4 @@
+package sahej.ui;
 public final class Commands {
     private Commands() {}
     public static final String LIST_COMMAND = "list";

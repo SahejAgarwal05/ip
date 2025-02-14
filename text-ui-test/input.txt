@@ -33,7 +33,7 @@ unmark !
 list
 todo    Extra Spaces Before
 todo Extra Spaces After
-deadline    Trimmed Deadline   /by    2024-12-31
+deadline    Trimmed sahej.tasks.Deadline   /by    2024-12-31
 event    MeetingName    /from    2024-10-10    /to    2024-10-11
 mark       3
 unmark       4

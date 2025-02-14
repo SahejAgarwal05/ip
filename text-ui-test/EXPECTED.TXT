@@ -185,7 +185,7 @@
 	11. [ ][E] Meeting (from: ### to: $$$)
 	12. [ ][T] Extra Spaces Before
 	13. [ ][T] Extra Spaces After
-	14. [ ][D] Trimmed Deadline (by: 2024-12-31)
+	14. [ ][D] Trimmed sahej.tasks.Deadline (by: 2024-12-31)
 	15. [ ][E] MeetingName (from: 2024-10-10 to: 2024-10-11)
 	____________________________________________________________
 
