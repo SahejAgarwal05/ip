@@ -1,13 +1,15 @@
-package main.java;
-
 public class Event extends ToDo {
     private String from;
     private String to;
 
-    public Event(String name, String from, String to) {
+    public Event(String name, String from, String to) throws SahejException {
         super(name);
+        if (from == null || to == null || from.equals("") || to.equals("")) {
+            throw ErrorExceptions.INVALID_EVENT_INPUT;
+        }
         this.from = from;
         this.to = to;
+
     }
 
     public String getFrom() {

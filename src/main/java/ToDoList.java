@@ -1,14 +1,13 @@
-package main.java;
 
 public class ToDoList {
-    private main.java.ToDo[] tasks;
+    private ToDo[] tasks;
     private int count;
     private final int MAX_COUNT = 100;
     private final String INVALID_NUMBER_MESSAGE = "\tInvalid task number. Please enter a valid task number.";
 
     public ToDoList() {
         this.count = 0;
-        this.tasks = new main.java.ToDo[this.MAX_COUNT];
+        this.tasks = new ToDo[this.MAX_COUNT];
     }
 
     /**
@@ -46,24 +45,24 @@ public class ToDoList {
      * Mark item to completed
      * @param taskNo index of the item to be marked complete
      */
-    public void mark(int taskNo) {
-        if (this.count == 0 || taskNo < 0 || taskNo > this.count) {
-            System.out.println(INVALID_NUMBER_MESSAGE);
-        } else {
+    public void mark(int taskNo) throws SahejException {
+        try {
             tasks[taskNo - 1].setCompleted(true);
-            System.out.println("\tMarked " + taskNo + " completed");
+            System.out.println("\tMarked task");
+        } catch (Exception e) {
+            throw ErrorExceptions.OUT_OF_RANGE;
         }
     }
     /**
-     * Mark item to incomplet
+     * Mark item to incomplete
      * @param taskNo index of the item to be marked incomplete
      */
-    public void unmark(int taskNo) {
-        if (this.count == 0 || taskNo <= 0 || taskNo > this.count) {
-            System.out.println(INVALID_NUMBER_MESSAGE);
-        } else {
+    public void unmark(int taskNo) throws SahejException {
+        try{
             tasks[taskNo - 1].setCompleted(false);
-            System.out.println("\tMarked " + taskNo + " incomplete");
+            System.out.println("\tUnmarked");
+        } catch (Exception e){
+            throw ErrorExceptions.OUT_OF_RANGE;
         }
     }
 }

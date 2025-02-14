@@ -1,10 +1,11 @@
-package main.java;
-
 public class Deadline extends ToDo {
     private String by;
 
-    public Deadline(String name, String by) {
+    public Deadline (String name, String by) throws SahejException {
         super(name);
+        if (by == null || by.equals("")) {
+            throw ErrorExceptions.INVALID_DEADLINE_INPUT;
+        }
         this.by = by;
     }
 

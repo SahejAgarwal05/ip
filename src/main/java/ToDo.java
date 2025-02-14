@@ -1,10 +1,12 @@
-package main.java;
 
 public class ToDo {
     protected String name;
     protected boolean isCompleted;
 
-    public ToDo(String name) {
+    public ToDo(String name) throws SahejException {
+        if (name == null || name.isEmpty()) {
+            throw ErrorExceptions.INVALID_TODO_INPUT;
+        }
         this.name = name;
         this.isCompleted = false;
     }
