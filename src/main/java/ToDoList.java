@@ -16,13 +16,13 @@ public class ToDoList {
      *
      * @param todo item to be added to the list
      */
-    public void add(ToDo todo) {
-        if (this.count == this.MAX_COUNT) {
-            System.out.println("\tList is full cannot store more than 100 items");
-        } else {
+    public void add(ToDo todo) throws SahejException {
+        try {
             this.tasks[this.count] = todo;
             this.count++;
             System.out.println("\tAdded");
+        } catch(Exception e) {
+            throw ErrorExceptions.LIST_FULL;
         }
     }
 
