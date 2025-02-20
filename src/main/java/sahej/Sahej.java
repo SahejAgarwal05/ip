@@ -1,10 +1,13 @@
 import java.util.Scanner;
+
 import sahej.tasks.*;
 import sahej.ui.*;
+
 public class Sahej {
     public static final String HORIZONTAL_LINE = "\t____________________________________________________________";
     public static final String ERROR_MESSAGE = "\tInvalid input. Please try again.";
     public static ToDoList list = new ToDoList();
+
     public static int getNumber(String input) throws SahejException {
         try {
             int n = Integer.parseInt(input.trim());
@@ -66,6 +69,10 @@ public class Sahej {
         case Commands.EVENT_COMMAND:
             parseEvent(input);
             break;
+        case Commands.DELETE_COMMAND:
+            num = getNumber(input.substring(6));
+            list.delete(num);
+            break;
         default:
             throw ErrorExceptions.INVALID_COMMAND;
         }
@@ -84,8 +91,7 @@ public class Sahej {
             }
             try {
                 parseInput(input);
-            }
-            catch (SahejException e) {
+            } catch (SahejException e) {
                 System.out.println(e.getMessage());
             }
             System.out.println(HORIZONTAL_LINE + "\n");

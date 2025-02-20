@@ -1,15 +1,13 @@
 package sahej.tasks;
 import sahej.ui.*;
 
+import java.util.ArrayList;
+
 public class ToDoList {
-    private ToDo[] tasks;
-    private int count;
-    private final int MAX_COUNT = 100;
-    private final String INVALID_NUMBER_MESSAGE = "\tInvalid task number. Please enter a valid task number.";
+    private ArrayList<ToDo> tasks;
 
     public ToDoList() {
-        this.count = 0;
-        this.tasks = new ToDo[this.MAX_COUNT];
+        this.tasks = new ArrayList<>();
     }
 
     /**
@@ -20,8 +18,7 @@ public class ToDoList {
      */
     public void add(ToDo todo) throws SahejException {
         try {
-            this.tasks[this.count] = todo;
-            this.count++;
+            this.tasks.add(todo);
             System.out.println("\tAdded");
         } catch(Exception e) {
             throw ErrorExceptions.LIST_FULL;
@@ -33,12 +30,12 @@ public class ToDoList {
      * if there are no items prints List is empty
      */
     public void printItems() {
-        if (this.count == 0) {
+        if (this.tasks.isEmpty()) {
             System.out.println("\tList is empty");
         } else {
-            for (int i = 0; i < this.count; i++) {
+            for (int i = 0; i < tasks.size(); i++) {
                 System.out.print("\t" + (i + 1) + ". ");
-                System.out.println(this.tasks[i].toString());
+                System.out.println(this.tasks.get(i).toString());
             }
         }
     }
@@ -49,7 +46,7 @@ public class ToDoList {
      */
     public void mark(int taskNo) throws SahejException {
         try {
-            tasks[taskNo - 1].setCompleted(true);
+            this.tasks.get(taskNo - 1).setCompleted(true);
             System.out.println("\tMarked task");
         } catch (Exception e) {
             throw ErrorExceptions.OUT_OF_RANGE;
@@ -61,9 +58,18 @@ public class ToDoList {
      */
     public void unmark(int taskNo) throws SahejException {
         try{
-            tasks[taskNo - 1].setCompleted(false);
+            this.tasks.get(taskNo - 1).setCompleted(false);
             System.out.println("\tUnmarked");
         } catch (Exception e){
+            throw ErrorExceptions.OUT_OF_RANGE;
+        }
+    }
+
+    public void delete(int taskNo) throws SahejException {
+        try {
+            tasks.remove(taskNo - 1);
+            System.out.println("\tDeleted task");
+        } catch (Exception e) {
             throw ErrorExceptions.OUT_OF_RANGE;
         }
     }

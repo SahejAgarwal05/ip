@@ -8,4 +8,5 @@ public final class Commands {
     public static final String MARK_COMMAND = "mark";
     public static final String UNMARK_COMMAND = "unmark";
     public static final String BYE_COMMAND = "bye";
+    public static final String DELETE_COMMAND = "delete";
 }
