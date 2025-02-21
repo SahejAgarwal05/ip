@@ -38,6 +38,10 @@ public class Event extends ToDo {
         }
     }
 
+    /**
+     * returns in String format ready to be saved
+     * @return saveString
+     */
     @Override
     public String saveFormat(){
         String saveString = "E|";

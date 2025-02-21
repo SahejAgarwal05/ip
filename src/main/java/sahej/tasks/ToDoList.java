@@ -72,6 +72,11 @@ public class ToDoList {
             throw ErrorExceptions.OUT_OF_RANGE;
         }
     }
+
+    /**
+     * Saves the data
+     * @throws Exception
+     */
     public void saveData() throws Exception {
         try {
             FileWriter writer = new FileWriter(this.SAVEFILE);
@@ -83,6 +88,11 @@ public class ToDoList {
             throw ErrorExceptions.FILE_CORRUPT;
         }
     }
+
+    /**
+     * Function to Load Data
+     * @throws Exception
+     */
     public void loadData() throws Exception {
         try {
             File saveFile = new File(this.SAVEFILE);
@@ -124,6 +134,13 @@ public class ToDoList {
         }
     }
 
+    /**
+     *Function to delete taskNo
+     * @param taskNo
+     * @throws SahejException
+     *
+     *
+     */
     public void delete(int taskNo) throws SahejException {
         try {
             tasks.remove(taskNo - 1);

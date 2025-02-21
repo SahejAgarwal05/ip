@@ -62,7 +62,10 @@ public class ToDo {
             return "[ ][T] " + this.name;
         }
     }
-
+    /**
+     * returns in String format ready to be saved
+     * @return saveString
+     */
     public String saveFormat(){
         String saveString = "T|";
         if(this.isCompleted){

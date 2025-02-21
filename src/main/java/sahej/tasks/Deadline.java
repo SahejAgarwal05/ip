@@ -35,6 +35,10 @@ public class Deadline extends ToDo {
             return "[ ][D] " + this.getName() + " (by: " + this.by + ")";
         }
     }
+    /**
+     * returns in String format ready to be saved
+     * @return saveString
+     */
     @Override
     public String saveFormat(){
         String saveString = "D|";

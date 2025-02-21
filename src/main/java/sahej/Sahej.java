@@ -6,6 +6,13 @@ public class Sahej {
     public static final String HORIZONTAL_LINE = "\t____________________________________________________________";
     public static final String ERROR_MESSAGE = "\tInvalid input. Please try again.";
     public static ToDoList list = new ToDoList();
+
+    /**
+     * Extracts the integer value
+     * @param input
+     * @return value
+     * @throws SahejException
+     */
     public static int getNumber(String input) throws SahejException {
         try {
             int n = Integer.parseInt(input.trim());
@@ -14,12 +21,23 @@ public class Sahej {
             throw ErrorExceptions.INVALID_NUMBER_ERROR;
         }
     }
+
+    /**
+     * parses input when determined to be deadline
+     * @param input
+     * @throws SahejException
+     */
     public static void parseDeadline(String input) throws SahejException {
         input = input.substring(8).trim();
         String[] split = input.split("/by");
         list.add(new Deadline(split[0].trim(), split[1].trim()));
     }
 
+    /**
+     * parses input when determined to be event
+     * @param input
+     * @throws SahejException
+     */
     public static void parseEvent(String input) throws SahejException {
         input = input.substring(5).trim();
         String[] split = input.split("/from");
@@ -41,6 +59,11 @@ public class Sahej {
         list.add(new Event(split2[0].trim(), split[1].trim(), split2[1].trim()));
     }
 
+    /**
+     * Parses input in conditions when it is noe bye
+     * @param input
+     * @throws SahejException
+     */
     public static void parseInput(String input) throws SahejException {
         String commnad = input.split(" ")[0].trim();
         int num;
