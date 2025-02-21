@@ -119,6 +119,7 @@ public class ToDoList {
                 }
             }
         } catch (Exception e) {
+            this.tasks.clear();
             throw ErrorExceptions.FILE_CORRUPT;
         }
     }
