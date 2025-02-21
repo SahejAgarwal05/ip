@@ -3,16 +3,15 @@ import sahej.ui.*;
 import java.io.FileWriter;
 import java.nio.file.Path;
 import java.nio.file.Files;
+import java.util.ArrayList;
 
 public class ToDoList {
-    private ToDo[] tasks;
-    private int count;
+    private ArrayList<ToDo> tasks;
     private final int MAX_COUNT = 100;
     private final String INVALID_NUMBER_MESSAGE = "\tInvalid task number. Please enter a valid task number.";
     private final String SAVEFILE = "./src/main/java/sahej/data/sahej.txt";
     public ToDoList() {
-        this.count = 0;
-        this.tasks = new ToDo[this.MAX_COUNT];
+        this.tasks = new ArrayList<>();
     }
 
     /**
@@ -23,8 +22,7 @@ public class ToDoList {
      */
     public void add(ToDo todo) throws SahejException {
         try {
-            this.tasks[this.count] = todo;
-            this.count++;
+            this.tasks.add(todo);
             System.out.println("\tAdded");
         } catch(Exception e) {
             throw ErrorExceptions.LIST_FULL;
@@ -36,12 +34,12 @@ public class ToDoList {
      * if there are no items prints List is empty
      */
     public void printItems() {
-        if (this.count == 0) {
+        if (this.tasks.isEmpty()) {
             System.out.println("\tList is empty");
         } else {
-            for (int i = 0; i < this.count; i++) {
+            for (int i = 0; i < tasks.size(); i++) {
                 System.out.print("\t" + (i + 1) + ". ");
-                System.out.println(this.tasks[i].toString());
+                System.out.println(this.tasks.get(i).toString());
             }
         }
     }
@@ -52,7 +50,7 @@ public class ToDoList {
      */
     public void mark(int taskNo) throws SahejException {
         try {
-            tasks[taskNo - 1].setCompleted(true);
+            this.tasks.get(taskNo - 1).setCompleted(true);
             System.out.println("\tMarked task");
         } catch (Exception e) {
             throw ErrorExceptions.OUT_OF_RANGE;
@@ -64,7 +62,7 @@ public class ToDoList {
      */
     public void unmark(int taskNo) throws SahejException {
         try{
-            tasks[taskNo - 1].setCompleted(false);
+            this.tasks.get(taskNo - 1).setCompleted(false);
             System.out.println("\tUnmarked");
         } catch (Exception e){
             throw ErrorExceptions.OUT_OF_RANGE;
@@ -73,8 +71,8 @@ public class ToDoList {
     public void saveData() throws Exception {
         try {
             FileWriter writer = new FileWriter(this.SAVEFILE);
-            for (int i = 0; i < this.count; i++) {
-                writer.write(tasks[i].saveFormat());
+            for (int i = 0; i < tasks.size(); i++) {
+                writer.write(tasks.get(i).saveFormat());
             }
             writer.close();
         } catch (Exception e) {
@@ -104,12 +102,20 @@ public class ToDoList {
                 }
                 if (insert != null) {
                     insert.setCompleted(splits[1].equals("X"));
-                    this.tasks[this.count] = insert;
-                    this.count++;
+                    this.tasks.add(insert);
                 }
             }
         } catch (Exception e) {
             throw ErrorExceptions.FILE_CORRUPT;
+        }
+    }
+
+    public void delete(int taskNo) throws SahejException {
+        try {
+            tasks.remove(taskNo - 1);
+            System.out.println("\tDeleted task");
+        } catch (Exception e) {
+            throw ErrorExceptions.OUT_OF_RANGE;
         }
     }
 }
