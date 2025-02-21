@@ -14,4 +14,5 @@ public final class ErrorExceptions {
     public static final SahejException INVALID_EVENT_INPUT =
             new SahejException("\tPlease input a valid event in format event <name>/from <from> /to <to>.");
     public static final SahejException LIST_FULL = new SahejException("\tList is full.");
+    public static final SahejException FILE_CORRUPT = new SahejException("\tFile is corrupted.");
 }

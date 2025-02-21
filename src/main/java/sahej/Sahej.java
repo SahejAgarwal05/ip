@@ -75,11 +75,21 @@ public class Sahej {
         System.out.println(HORIZONTAL_LINE + "\n\tHello! I'm Sahej\n\tWhat can I do for you?\n" + HORIZONTAL_LINE);
         Scanner inputScanner = new Scanner(System.in);
         String input = "";
+        try{
+            list.loadData();
+        } catch (SahejException e) {
+            System.out.println(e.getMessage());
+        }
         mainloop:
         while (true) {
             input = inputScanner.nextLine().trim(); // get trimmed user input
             System.out.println(HORIZONTAL_LINE);
             if (input.equals(Commands.BYE_COMMAND)) {
+                try{
+                    list.saveData();
+                } catch (SahejException e) {
+                    System.out.println(e.getMessage());
+                }
                 break mainloop;
             }
             try {
