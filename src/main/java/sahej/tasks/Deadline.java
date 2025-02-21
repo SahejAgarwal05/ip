@@ -4,10 +4,10 @@ public class Deadline extends ToDo {
     private String by;
 
     public Deadline (String name, String by) throws SahejException {
-        super(name);
-        if (by == null || by.equals("")) {
+        if (by == null || by.equals("") || name == null || name.equals("")) {
             throw ErrorExceptions.INVALID_DEADLINE_INPUT;
         }
+        this.name = name;
         this.by = by;
     }
 
@@ -34,5 +34,17 @@ public class Deadline extends ToDo {
         } else {
             return "[ ][D] " + this.getName() + " (by: " + this.by + ")";
         }
+    }
+    @Override
+    public String saveFormat(){
+        String saveString = "D|";
+        if (this.isCompleted) {
+            saveString += "X|";
+        } else {
+            saveString += " |";
+        }
+        saveString += this.name + "|";
+        saveString += this.by;
+        return saveString + "\n";
     }
 }

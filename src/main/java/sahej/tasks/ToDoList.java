@@ -1,12 +1,15 @@
 package sahej.tasks;
 import sahej.ui.*;
+import java.io.FileWriter;
+import java.nio.file.Path;
+import java.nio.file.Files;
 
 public class ToDoList {
     private ToDo[] tasks;
     private int count;
     private final int MAX_COUNT = 100;
     private final String INVALID_NUMBER_MESSAGE = "\tInvalid task number. Please enter a valid task number.";
-
+    private final String SAVEFILE = "./src/main/java/sahej/data/sahej.txt";
     public ToDoList() {
         this.count = 0;
         this.tasks = new ToDo[this.MAX_COUNT];
@@ -65,6 +68,48 @@ public class ToDoList {
             System.out.println("\tUnmarked");
         } catch (Exception e){
             throw ErrorExceptions.OUT_OF_RANGE;
+        }
+    }
+    public void saveData() throws Exception {
+        try {
+            FileWriter writer = new FileWriter(this.SAVEFILE);
+            for (int i = 0; i < this.count; i++) {
+                writer.write(tasks[i].saveFormat());
+            }
+            writer.close();
+        } catch (Exception e) {
+            throw ErrorExceptions.FILE_CORRUPT;
+        }
+    }
+    public void loadData() throws Exception {
+        try {
+            String rawData = Files.readString(Path.of(this.SAVEFILE));
+            String[] lines = rawData.split("\n");
+            for (int i = 0; i < lines.length; i++) {
+                lines[i] = lines[i].trim();
+                String[] splits = lines[i].split("\\|");
+                ToDo insert = null;
+                switch (splits[0]) {
+                    case "T":
+                        insert = new ToDo(splits[2]);
+                        break;
+                    case "E":
+                        insert = new Event(splits[2], splits[3], splits[4]);
+                        break;
+                    case "D":
+                        insert = new Deadline(splits[2], splits[3]);
+                        break;
+                    default:
+                        insert = null;
+                }
+                if (insert != null) {
+                    insert.setCompleted(splits[1].equals("X"));
+                    this.tasks[this.count] = insert;
+                    this.count++;
+                }
+            }
+        } catch (Exception e) {
+            throw ErrorExceptions.FILE_CORRUPT;
         }
     }
 }

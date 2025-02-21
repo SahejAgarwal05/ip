@@ -13,7 +13,6 @@ public class Sahej {
             throw ErrorExceptions.INVALID_NUMBER_ERROR;
         }
     }
-
     public static void parseDeadline(String input) throws SahejException {
         input = input.substring(8).trim();
         String[] split = input.split("/by");
@@ -71,15 +70,25 @@ public class Sahej {
         }
     }
 
-    public static void main(String[] args) throws SahejException {
+    public static void main(String[] args) throws Exception {
         System.out.println(HORIZONTAL_LINE + "\n\tHello! I'm Sahej\n\tWhat can I do for you?\n" + HORIZONTAL_LINE);
         Scanner inputScanner = new Scanner(System.in);
         String input = "";
+        try {
+            list.loadData();
+        } catch (SahejException e) {
+            System.out.println(e.getMessage());
+        }
         mainloop:
         while (true) {
             input = inputScanner.nextLine().trim(); // get trimmed user input
             System.out.println(HORIZONTAL_LINE);
             if (input.equals(Commands.BYE_COMMAND)) {
+                try{
+                list.saveData();
+                } catch (SahejException e) {
+                    System.out.println(e.getMessage());
+                }
                 break mainloop;
             }
             try {

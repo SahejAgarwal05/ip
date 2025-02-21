@@ -5,13 +5,12 @@ public class Event extends ToDo {
     private String to;
 
     public Event(String name, String from, String to) throws SahejException {
-        super(name);
-        if (from == null || to == null || from.equals("") || to.equals("")) {
+        if (from == null || to == null || from.equals("") || to.equals("")|| name.equals("") || name == null) {
             throw ErrorExceptions.INVALID_EVENT_INPUT;
         }
         this.from = from;
         this.to = to;
-
+        this.name = name;
     }
 
     public String getFrom() {
@@ -37,5 +36,18 @@ public class Event extends ToDo {
         } else {
             return "[ ][E] " + this.name + " (from: " + this.from + " to: " + this.to + ")";
         }
+    }
+
+    @Override
+    public String saveFormat(){
+        String saveString = "E|";
+        if (this.isCompleted) {
+            saveString += "X|";
+        } else {
+            saveString += " |";
+        }
+        saveString += this.name + "|";
+        saveString += this.from + "|" + this.to;
+        return saveString  + "\n";
     }
 }
