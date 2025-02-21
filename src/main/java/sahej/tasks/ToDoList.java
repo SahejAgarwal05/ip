@@ -4,12 +4,16 @@ import java.io.FileWriter;
 import java.nio.file.Path;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileOutputStream;
+
 
 public class ToDoList {
     private ArrayList<ToDo> tasks;
     private final int MAX_COUNT = 100;
     private final String INVALID_NUMBER_MESSAGE = "\tInvalid task number. Please enter a valid task number.";
-    private final String SAVEFILE = "./src/main/java/sahej/data/sahej.txt";
+    private final String SAVEFILE = "./data/sahej.txt";
+    private final String SAVEFOLDER = "./data";
     public ToDoList() {
         this.tasks = new ArrayList<>();
     }
@@ -81,6 +85,15 @@ public class ToDoList {
     }
     public void loadData() throws Exception {
         try {
+            File saveFile = new File(this.SAVEFILE);
+            File saveFolder = saveFile.getParentFile();
+            if (saveFolder != null && !saveFolder.exists()) {
+                saveFolder.mkdirs();
+            }
+            // Ensure the file exists
+            if (!saveFile.exists()) {
+                new FileOutputStream(saveFile, false).close(); // Creates a blank file
+            }
             String rawData = Files.readString(Path.of(this.SAVEFILE));
             String[] lines = rawData.split("\n");
             for (int i = 0; i < lines.length; i++) {
@@ -119,5 +132,6 @@ public class ToDoList {
         }
     }
 }
+
 
 
