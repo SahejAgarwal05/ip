@@ -1,132 +1,51 @@
-import java.util.Scanner;
 import sahej.tasks.*;
 import sahej.ui.*;
 
 public class Sahej {
-    public static final String HORIZONTAL_LINE = "\t____________________________________________________________";
-    public static final String ERROR_MESSAGE = "\tInvalid input. Please try again.";
-    public static ToDoList list = new ToDoList();
+    private static final String SAVEFILE = "./data/sahej.txt";
+    private  ToDoList list;
+    private  UserInterface ui;
+    private  DataManager storageManager;
+    private Parser parser;
+    public Sahej() {
+        list = new ToDoList();
+        ui = new UserInterface();
+        storageManager = new DataManager(SAVEFILE);
+        parser = new Parser(ui, list);
 
-    /**
-     * Extracts the integer value
-     * @param input
-     * @return value
-     * @throws SahejException
-     */
-    public static int getNumber(String input) throws SahejException {
+    }
+    public void initialize() {
+        ui.displayWelcomeMessage();
         try {
-            int n = Integer.parseInt(input.trim());
-            return n;
-        } catch (NumberFormatException e) {
-            throw ErrorExceptions.INVALID_NUMBER_ERROR;
+            storageManager.loadData(list);
+        } catch (SahejException e){
+            ui.displayException(e);
         }
     }
-
-    /**
-     * parses input when determined to be deadline
-     * @param input
-     * @throws SahejException
-     */
-    public static void parseDeadline(String input) throws SahejException {
-        input = input.substring(8).trim();
-        String[] split = input.split("/by");
-        list.add(new Deadline(split[0].trim(), split[1].trim()));
-    }
-
-    /**
-     * parses input when determined to be event
-     * @param input
-     * @throws SahejException
-     */
-    public static void parseEvent(String input) throws SahejException {
-        input = input.substring(5).trim();
-        String[] split = input.split("/from");
-        if (split.length != 2) {
-            throw ErrorExceptions.INVALID_EVENT_INPUT;
-        }
-        String name = split[0].trim();
-        String[] split2 = split[1].split("/to");
-        if (split2.length > 2) {
-            throw ErrorExceptions.INVALID_EVENT_INPUT;
-        } else if (split2.length == 2) {
-            list.add(new Event(name, split2[0].trim(), split2[1].trim()));
-            return;
-        }
-        split2 = split[0].split("/to");
-        if (split2.length != 2) {
-            throw ErrorExceptions.INVALID_EVENT_INPUT;
-        }
-        list.add(new Event(split2[0].trim(), split[1].trim(), split2[1].trim()));
-    }
-
-    /**
-     * Parses input in conditions when it is noe bye
-     * @param input
-     * @throws SahejException
-     */
-    public static void parseInput(String input) throws SahejException {
-        String commnad = input.split(" ")[0].trim();
-        int num;
-        switch (commnad) {
-        case Commands.LIST_COMMAND:
-            list.printItems();
-            break;
-        case Commands.MARK_COMMAND:
-            num = getNumber(input.substring(4));
-            list.mark(num);
-            break;
-        case Commands.UNMARK_COMMAND:
-            num = getNumber(input.substring(6));
-            list.unmark(num);
-            break;
-        case Commands.TODO_COMMAND:
-            input = input.substring(4).trim();
-            list.add(new ToDo(input));
-            break;
-        case Commands.DEADLINE_COMMAND:
-            parseDeadline(input);
-            break;
-        case Commands.EVENT_COMMAND:
-            parseEvent(input);
-            break;
-        case Commands.DELETE_COMMAND:
-            num = getNumber(input.substring(6));
-            list.delete(num);
-            break;
-        default:
-            throw ErrorExceptions.INVALID_COMMAND;
-        }
-    }
-
-    public static void main(String[] args) throws Exception {
-        System.out.println(HORIZONTAL_LINE + "\n\tHello! I'm Sahej\n\tWhat can I do for you?\n" + HORIZONTAL_LINE);
-        Scanner inputScanner = new Scanner(System.in);
-        String input = "";
-        try {
-            list.loadData();
-        } catch (SahejException e) {
-            System.out.println(e.getMessage());
-        }
-        mainloop:
-        while (true) {
-            input = inputScanner.nextLine().trim(); // get trimmed user input
-            System.out.println(HORIZONTAL_LINE);
-            if (input.equals(Commands.BYE_COMMAND)) {
-                try{
-                list.saveData();
-                } catch (SahejException e) {
-                    System.out.println(e.getMessage());
-                }
-                break mainloop;
-            }
+    public void runChat(){
+        String input = ui.getUserInput();
+        while(!parser.isBye(input)){
             try {
-                parseInput(input);
-            } catch (SahejException e) {
-                System.out.println(e.getMessage());
+                parser.parseAndExecuteInput(input);
+            } catch (SahejException e){
+                ui.displayException(e);
             }
-            System.out.println(HORIZONTAL_LINE + "\n");
+            input = ui.getUserInput();
         }
-        System.out.println("\tBye. Hope to see you again soon!\n" + HORIZONTAL_LINE);
+    }
+    public void endChat() {
+        ui.displayGoodBye();
+        try {
+            storageManager.saveData(list);
+        } catch (SahejException e){
+            ui.displayException(e);
+        }
+    }
+    public static void main(String[] args) {
+        Sahej sahej = new Sahej();
+        sahej.initialize();
+        sahej.runChat();
+        sahej.endChat();
     }
 }
 
