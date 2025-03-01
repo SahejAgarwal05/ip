@@ -1,10 +1,18 @@
 package sahej.tasks;
 import sahej.ui.*;
 
+/**
+ * Represents a basic ToDo task with a name and completion status.
+ */
 public class ToDo {
     protected String name;
     protected boolean isCompleted;
-
+    /**
+     * Constructs a ToDo task with a specified name.
+     *
+     * @param name The name of the task.
+     * @throws SahejException If the name is null or empty.
+     */
     public ToDo(String name) throws SahejException {
         if (name == null || name.isEmpty()) {
             throw ErrorExceptions.INVALID_TODO_INPUT;
@@ -13,47 +21,54 @@ public class ToDo {
         this.isCompleted = false;
     }
 
+    /**
+     * Constructs an empty ToDo task with default values.
+     */
     public ToDo() {
         this.isCompleted = false;
         this.name = "";
     }
 
     /**
-     * @return name of the task
+     * Retrieves the name of the task.
+     *
+     * @return The name of the task.
      */
     public String getName() {
         return this.name;
     }
 
     /**
-     * Change name of the task
+     * Updates the name of the task.
      *
-     * @param name new name of the task
+     * @param name The new name of the task.
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * check if task is completed
+     * Checks if the task is completed.
      *
-     * @return true for completed task and false for incomplete task
+     * @return True if the task is completed, false otherwise.
      */
     public boolean isCompleted() {
         return this.isCompleted;
     }
 
     /**
-     * Change status of task
+     * Updates the completion status of the task.
      *
-     * @param completed
+     * @param completed The new completion status of the task.
      */
     public void setCompleted(boolean completed) {
         this.isCompleted = completed;
     }
 
     /**
-     * Print the task for the list
+     * Returns a string representation of the ToDo task.
+     *
+     * @return A formatted string displaying the task status and name.
      */
     public String toString() {
         if (this.isCompleted) {
@@ -62,9 +77,11 @@ public class ToDo {
             return "[ ][T] " + this.name;
         }
     }
+
     /**
-     * returns in String format ready to be saved
-     * @return saveString
+     * Formats the ToDo task as a string suitable for saving to a file.
+     *
+     * @return A formatted string representing the ToDo task for storage.
      */
     public String saveFormat(){
         String saveString = "T|";

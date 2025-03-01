@@ -9,39 +9,19 @@ public class Parser {
         this.ui = ui;
         this.list = list;
     }
-    /**
-     *
-     * Extracts the integer value
-     * @param input
-     * @return value
-     * @throws SahejException
-     */
     private  int getNumber(String input) throws SahejException {
         try {
-            int n = Integer.parseInt(input.trim());
-            return n;
+            return Integer.parseInt(input.trim());
         } catch (NumberFormatException e) {
             throw ErrorExceptions.INVALID_NUMBER_ERROR;
         }
     }
-
-    /**
-     * parses input when determined to be deadline
-     * @param input
-     * @throws SahejException
-     */
     private void executeDeadline(String input) throws SahejException {
         input = input.substring(8).trim();
         String[] split = input.split("/by");
         list.add(new Deadline(split[0].trim(), split[1].trim()));
         ui.displayWithLines("Added");
     }
-
-    /**
-     * parses input when determined to be event
-     * @param input
-     * @throws SahejException
-     */
     private void executeEvent(String input) throws SahejException {
         input = input.substring(5).trim();
         String[] split = input.split("/from");
@@ -88,9 +68,10 @@ public class Parser {
         ui.displayWithLines("Deleted: " + num);
     }
     /**
-     * Parses input in conditions when it is noe bye
-     * @param input
-     * @throws SahejException
+     * Parses and executes user input commands except for bye
+     *
+     * @param input The user input command.
+     * @throws SahejException If the command is invalid.
      */
     public void parseAndExecuteInput(String input) throws SahejException {
         String commnad = input.split(" ")[0].trim();
@@ -125,6 +106,12 @@ public class Parser {
                 throw ErrorExceptions.INVALID_COMMAND;
         }
     }
+    /**
+     * Checks if the given input is a "bye" command.
+     *
+     * @param input The user input.
+     * @return True if the input is a "bye" command, false otherwise.
+     */
     public boolean isBye(String input) {
         return input.equals(Commands.BYE_COMMAND);
     }

@@ -5,9 +5,19 @@ import sahej.ui.ErrorExceptions;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task with a specific deadline
+ */
 public class Deadline extends ToDo {
     private LocalDate by;
 
+    /**
+     * Constructor for Deadline.
+     *
+     * @param name The name of the task.
+     * @param by The deadline date in format YYYY-MM-DD.
+     * @throws SahejException If the input name or date is invalid.
+     */
     public Deadline (String name, String by) throws SahejException {
         if (by == null || by.equals("") || name == null || name.equals("")) {
             throw ErrorExceptions.INVALID_DEADLINE_INPUT;
@@ -21,21 +31,28 @@ public class Deadline extends ToDo {
     }
 
     /**
-     * returns the time of the deadline
-     * @return
+     * Retrieves the deadline date.
+     *
+     * @return The deadline date as a LocalDate object.
      */
     public LocalDate getBy() {
         return by;
     }
 
     /**
-     *alter the deadline time
-     * @param by
+     * Sets or updates the deadline date.
+     *
+     * @param by The new deadline date as a LocalDate object.
      */
     public void setBy(LocalDate by) {
         this.by = by;
     }
 
+    /**
+     * Returns a string representation of the Deadline task.
+     *
+     * @return A formatted string displaying the task status, type, name, and deadline date.
+     */
     @Override
     public String toString() {
         if (this.isCompleted) {
@@ -45,8 +62,9 @@ public class Deadline extends ToDo {
         }
     }
     /**
-     * returns in String format ready to be saved
-     * @return saveString
+     * Formats the Deadline task as a string suitable for saving to a file.
+     *
+     * @return A formatted string representing the Deadline task for storage.
      */
     @Override
     public String saveFormat(){
