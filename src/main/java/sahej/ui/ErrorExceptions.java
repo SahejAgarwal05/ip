@@ -15,5 +15,5 @@ public final class ErrorExceptions {
             new SahejException("Please input a valid event in format event <name>/from <from> /to <to>.");
     public static final SahejException LIST_FULL = new SahejException("List is full.");
     public static final SahejException FILE_CORRUPT = new SahejException("Storage file corrupted.");
-    public static final SahejException LIST_EMPTY = new SahejException("List is empty");
+    public static final SahejException INVALID_FIND_INPUT = new SahejException("Invalid input. Find commands needs a name to search for");
 }

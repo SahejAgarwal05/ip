@@ -30,7 +30,7 @@ public class Parser {
      * @param input
      * @throws SahejException
      */
-    private void parseDeadline(String input) throws SahejException {
+    private void executeDeadline(String input) throws SahejException {
         input = input.substring(8).trim();
         String[] split = input.split("/by");
         list.add(new Deadline(split[0].trim(), split[1].trim()));
@@ -42,7 +42,7 @@ public class Parser {
      * @param input
      * @throws SahejException
      */
-    private void parseEvent(String input) throws SahejException {
+    private void executeEvent(String input) throws SahejException {
         input = input.substring(5).trim();
         String[] split = input.split("/from");
         if (split.length != 2) {
@@ -66,7 +66,27 @@ public class Parser {
         list.add(event);
         ui.displayWithLines("Added : " + event.toString());
     }
-
+    private void executeToDo(String input) throws SahejException {
+        input = input.substring(4).trim();
+        ToDo td = new ToDo(input);
+        list.add(td);
+        ui.displayWithLines("Added : " + td.toString());
+    }
+    private void executeMark(String input) throws SahejException{
+        int num = getNumber(input.substring(4));
+        list.mark(num);
+        ui.displayWithLines("Marked: " + num);
+    }
+    private void executeUnmark(String input) throws SahejException{
+        int num = getNumber(input.substring(6));
+        list.unmark(num);
+        ui.displayWithLines("Unmarked: " + num);
+    }
+    private void executeDelete(String input) throws SahejException{
+        int num = getNumber(input.substring(6));
+        list.delete(num);
+        ui.displayWithLines("Deleted: " + num);
+    }
     /**
      * Parses input in conditions when it is noe bye
      * @param input
@@ -77,34 +97,29 @@ public class Parser {
         int num;
         switch (commnad) {
             case Commands.LIST_COMMAND:
-                ui.displayList(list.getPrintItems());
+                ui.displayList(list.getPrintItems(), "List is currently empty.");
                 break;
             case Commands.MARK_COMMAND:
-                num = getNumber(input.substring(4));
-                list.mark(num);
-                ui.displayWithLines("Marked: " + num);
+                executeMark(input);
                 break;
             case Commands.UNMARK_COMMAND:
-                num = getNumber(input.substring(6));
-                list.unmark(num);
-                ui.displayWithLines("Unmarked: " + num);
+                executeUnmark(input);
                 break;
             case Commands.TODO_COMMAND:
-                input = input.substring(4).trim();
-                ToDo td = new ToDo(input);
-                list.add(td);
-                ui.displayWithLines("Added : " + td.toString());
+                executeToDo(input);
                 break;
             case Commands.DEADLINE_COMMAND:
-                parseDeadline(input);
+                executeDeadline(input);
                 break;
             case Commands.EVENT_COMMAND:
-                parseEvent(input);
+                executeEvent(input);
                 break;
             case Commands.DELETE_COMMAND:
-                num = getNumber(input.substring(6));
-                list.delete(num);
-                ui.displayWithLines("Deleted: " + num);
+                executeDelete(input);
+                break;
+            case Commands.FIND_COMMAND:
+                input = input.substring(4).trim();
+                ui.displayList(list.searchByName(input), "No Matches Found.");
                 break;
             default:
                 throw ErrorExceptions.INVALID_COMMAND;

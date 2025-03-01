@@ -6,7 +6,8 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileOutputStream;
-
+import sahej.tasks.*;
+import sahej.ui.ErrorExceptions;
 
 public class ToDoList {
     private ArrayList<ToDo> tasks;
@@ -33,9 +34,6 @@ public class ToDoList {
      * Returns a list of all list items converted to String
      */
     public String[] getPrintItems() throws SahejException {
-        if (this.tasks.isEmpty()) {
-            throw ErrorExceptions.LIST_EMPTY;
-        }
         String[] finalList = new String[this.tasks.size()];
         for (int i = 0; i < tasks.size(); i++) {
             finalList[i] = (i + 1) + ". " + this.tasks.get(i).toString();
@@ -136,6 +134,20 @@ public class ToDoList {
         } catch (Exception e) {
             throw ErrorExceptions.OUT_OF_RANGE;
         }
+    }
+    public String[] searchByName(String name) throws SahejException {
+        if (name.trim().isEmpty()){
+            throw ErrorExceptions.INVALID_FIND_INPUT;
+        }
+        ArrayList<String> finalList = new ArrayList<>();
+        ToDo current;
+        for (int i = 0; i < this.tasks.size(); i++) {
+            current = tasks.get(i);
+            if (current.getName().toLowerCase().contains(name.trim().toLowerCase())){
+                finalList.add(current.toString());
+            }
+        }
+        return finalList.toArray(new String[finalList.size()]);
     }
 }
 

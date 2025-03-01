@@ -19,7 +19,11 @@ public class UserInterface {
     public void displayException(SahejException e) {
         displayWithLines("Error : " + e.getMessage());
     }
-    public void displayList(String[] list){
+    public void displayList(String[] list, String emptyListMessage) {
+        if (list.length == 0) {
+            displayWithLines(emptyListMessage);
+            return;
+        }
         String finalList = "";
         for(String s : list){
             finalList = finalList + "\t"+ s + "\n";
