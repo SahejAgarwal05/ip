@@ -16,4 +16,5 @@ public final class ErrorExceptions {
     public static final SahejException LIST_FULL = new SahejException("List is full.");
     public static final SahejException FILE_CORRUPT = new SahejException("Storage file corrupted.");
     public static final SahejException LIST_EMPTY = new SahejException("List is empty");
+    public static final SahejException INVALID_DEADLINE_DATE = new sahej.ui.SahejException("Invsalid by date. Date must be in format YYYY-MM-DD.");
 }
