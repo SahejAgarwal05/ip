@@ -15,7 +15,7 @@ public class Deadline extends ToDo {
         try {
             this.by = LocalDate.parse(by);
         } catch (Exception e) {
-            throw ErrorExceptions.INVALID_DEADLINE_DATE.;
+            throw ErrorExceptions.INVALID_DEADLINE_DATE;
         }
         this.name = name;
     }
