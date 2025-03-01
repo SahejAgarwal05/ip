@@ -9,4 +9,5 @@ public final class Commands {
     public static final String UNMARK_COMMAND = "unmark";
     public static final String BYE_COMMAND = "bye";
     public static final String DELETE_COMMAND = "delete";
+    public static final String FIND_COMMAND = "find";
 }
