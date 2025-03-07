@@ -1,10 +1,7 @@
 # Sahej User Guide
+<img width="514" alt="image" src="https://github.com/user-attachments/assets/1c9120ff-6dd2-4460-8f78-3895bbbd53aa" />
 
-// Update the title above to match the actual product name
-
-// Product screenshot goes here
-
-// Product intro goes here
+Sahej is a specilized calender manager bot on the Command Line Interface designed to help the user store and manage several events deadline and todos. 
 
 ## Adding deadlines
 
