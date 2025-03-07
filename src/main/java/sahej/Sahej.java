@@ -1,19 +1,28 @@
 import sahej.tasks.*;
 import sahej.ui.*;
 
+/**
+ * Main class for the Sahej chatbot
+ */
 public class Sahej {
     private static final String SAVEFILE = "./data/sahej.txt";
     private  ToDoList list;
     private  UserInterface ui;
     private  DataManager storageManager;
     private Parser parser;
-    public Sahej() {
+    /**
+     * Constructs the Sahej chatbot
+     */
+    public Sahej(String fileName) {
         list = new ToDoList();
         ui = new UserInterface();
-        storageManager = new DataManager(SAVEFILE);
+        storageManager = new DataManager(fileName);
         parser = new Parser(ui, list);
 
     }
+    /**
+     * Initializes the chatbot by displaying a welcome message and loading stored tasks.
+     */
     public void initialize() {
         ui.displayWelcomeMessage();
         try {
@@ -22,6 +31,9 @@ public class Sahej {
             ui.displayException(e);
         }
     }
+    /**
+     * Runs the chat loop until the user inputs bye.
+     */
     public void runChat(){
         String input = ui.getUserInput();
         while(!parser.isBye(input)){
@@ -33,6 +45,9 @@ public class Sahej {
             input = ui.getUserInput();
         }
     }
+    /**
+     * Ends the chat, saves data, and displays a goodbye message.
+     */
     public void endChat() {
         ui.displayGoodBye();
         try {
@@ -42,7 +57,7 @@ public class Sahej {
         }
     }
     public static void main(String[] args) {
-        Sahej sahej = new Sahej();
+        Sahej sahej = new Sahej(SAVEFILE);
         sahej.initialize();
         sahej.runChat();
         sahej.endChat();

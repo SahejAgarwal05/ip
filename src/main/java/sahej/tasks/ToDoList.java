@@ -1,26 +1,27 @@
 package sahej.tasks;
 import sahej.ui.*;
-import java.io.FileWriter;
-import java.nio.file.Path;
-import java.nio.file.Files;
 import java.util.ArrayList;
-import java.io.File;
-import java.io.FileOutputStream;
 import sahej.tasks.*;
 import sahej.ui.ErrorExceptions;
 
+/**
+ * Manages a list of  tasks
+ */
 public class ToDoList {
     private ArrayList<ToDo> tasks;
     private final String SAVEFILE = "./data/sahej.txt";
+    /**
+     * Constructs an empty ToDoList.
+     */
     public ToDoList() {
         this.tasks = new ArrayList<>();
     }
 
     /**
-     * Adds task to the list if there are 99 or less items
-     * if there are 100 items prints List is full cannot store more than 100 items
+     * Adds a task to the list.
      *
-     * @param todo item to be added to the list
+     * @param todo The task to be added.
+     * @throws SahejException If the list is full or an error occurs while adding.
      */
     public void add(ToDo todo) throws SahejException {
         try {
@@ -31,7 +32,10 @@ public class ToDoList {
     }
 
     /**
-     * Returns a list of all list items converted to String
+     * Retrieves all tasks in a formatted string array for display.
+     *
+     * @return A list of formatted task strings.
+     * @throws SahejException If an error occurs while retrieving the tasks.
      */
     public String[] getPrintItems() throws SahejException {
         String[] finalList = new String[this.tasks.size()];
@@ -42,9 +46,10 @@ public class ToDoList {
     }
 
     /**
-     * Mark item to completed
-     * @param taskNo index of the item to be marked complete
-     * @return markMessage
+     * Sets a task as complete
+     *
+     * @param taskNo The index of the task to be marked as completed.
+     * @throws SahejException If the task number is out of range.
      */
     public void mark(int taskNo) throws SahejException {
         try {
@@ -55,9 +60,10 @@ public class ToDoList {
     }
 
     /**
-     * Unmark TaskNo
-     * @param taskNo
-     * @throws SahejException
+     * Sets a task as incomplete
+     *
+     * @param taskNo The index of the task to be unmarked.
+     * @throws SahejException If the task number is out of range.
      */
     public void unmark(int taskNo) throws SahejException {
         try{
@@ -67,7 +73,11 @@ public class ToDoList {
         }
     }
 
-
+    /**
+     * Formats the task list for saving.
+     *
+     * @return A formatted string representation of all tasks for storage.
+     */
     public String getSaveFormat() {
         String finalSave = "";
         for (int i = 0; i < this.tasks.size(); i++) {
@@ -75,58 +85,11 @@ public class ToDoList {
         }
         return finalSave;
     }
-
     /**
-     * Function to Load Data
-     * @throws Exception
-     */
-    public void loadData() throws Exception {
-        try {
-            File saveFile = new File(this.SAVEFILE);
-            File saveFolder = saveFile.getParentFile();
-            if (saveFolder != null && !saveFolder.exists()) {
-                saveFolder.mkdirs();
-            }
-            // Ensure the file exists
-            if (!saveFile.exists()) {
-                new FileOutputStream(saveFile, false).close(); // Creates a blank file
-            }
-            String rawData = Files.readString(Path.of(this.SAVEFILE));
-            String[] lines = rawData.split("\n");
-            for (int i = 0; i < lines.length; i++) {
-                lines[i] = lines[i].trim();
-                String[] splits = lines[i].split("\\|");
-                ToDo insert = null;
-                switch (splits[0]) {
-                    case "T":
-                        insert = new ToDo(splits[2]);
-                        break;
-                    case "E":
-                        insert = new Event(splits[2], splits[3], splits[4]);
-                        break;
-                    case "D":
-                        insert = new Deadline(splits[2], splits[3]);
-                        break;
-                    default:
-                        insert = null;
-                }
-                if (insert != null) {
-                    insert.setCompleted(splits[1].equals("X"));
-                    this.tasks.add(insert);
-                }
-            }
-        } catch (Exception e) {
-            this.tasks.clear();
-            throw ErrorExceptions.FILE_CORRUPT;
-        }
-    }
-
-    /**
-     *Function to delete taskNo
-     * @param taskNo
-     * @throws SahejException
+     * Deletes a task from the list.
      *
-     *
+     * @param taskNo The index of the task to be deleted.
+     * @throws SahejException If the task number is out of range.
      */
     public void delete(int taskNo) throws SahejException {
         try {
@@ -135,6 +98,13 @@ public class ToDoList {
             throw ErrorExceptions.OUT_OF_RANGE;
         }
     }
+    /**
+     * Searches for tasks that have name as a part of their name. This function is not case sensitive,
+     *
+     * @param name The keyword to search for in task names.
+     * @return A list of formatted task strings that match the search query.
+     * @throws SahejException If the search query is empty or invalid.
+     */
     public String[] searchByName(String name) throws SahejException {
         if (name.trim().isEmpty()){
             throw ErrorExceptions.INVALID_FIND_INPUT;
