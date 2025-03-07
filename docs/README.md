@@ -5,11 +5,14 @@ Sahej is a specilized calender manager bot on the Command Line Interface designe
 
 ## Adding deadlines
 
-// Describe the action and its outcome.
+Deadlines are tasks that need to be 
 
 // Give examples of usage
 
-Example: `keyword (optional arguments)`
+Example: `deadline return book /by 2025-03-22
+	____________________________________________________________
+	Added
+	____________________________________________________________'
 
 // A description of the expected outcome goes here
 
