@@ -7,16 +7,6 @@ Sahej is a specilized calender manager bot on the Command Line Interface designe
 
 Deadlines are tasks that need to be completed by a certain date. Deadlines can be added to your list thorugh:  ```markdown
 deadline <name of the deadline> /by <date in YYYY-MM-DD>
-'''
-
-// Give examples of usage
-
-Example: `deadline return book /by 2025-03-22'
-
-// A description of the expected outcome goes here
-
-```
-expected output
 ```
 
 ## Feature ABC
