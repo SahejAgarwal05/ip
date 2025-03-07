@@ -19,8 +19,9 @@ public class Parser {
     private void executeDeadline(String input) throws SahejException {
         input = input.substring(8).trim();
         String[] split = input.split("/by");
-        list.add(new Deadline(split[0].trim(), split[1].trim()));
-        ui.displayWithLines("Added");
+        Deadline newDeadline = new Deadline(split[0].trim(), split[1].trim());
+        list.add(newDeadline);
+        ui.displayWithLines("Added" + newDeadline);
     }
     private void executeEvent(String input) throws SahejException {
         input = input.substring(5).trim();
