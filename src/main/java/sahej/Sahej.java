@@ -32,7 +32,7 @@ public class Sahej {
         }
     }
     /**
-     * Runs the interactive chat loop for user commands until the user inputs bye.
+     * Runs the chat loop until the user inputs bye.
      */
     public void runChat(){
         String input = ui.getUserInput();

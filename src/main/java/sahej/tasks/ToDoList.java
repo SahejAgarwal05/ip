@@ -5,7 +5,7 @@ import sahej.tasks.*;
 import sahej.ui.ErrorExceptions;
 
 /**
- * Manages a list of  tasks, including adding, marking, deleting, and searching tasks.
+ * Manages a list of  tasks
  */
 public class ToDoList {
     private ArrayList<ToDo> tasks;
@@ -46,7 +46,7 @@ public class ToDoList {
     }
 
     /**
-     * Marks a task as completed.
+     * Sets a task as complete
      *
      * @param taskNo The index of the task to be marked as completed.
      * @throws SahejException If the task number is out of range.
@@ -60,7 +60,7 @@ public class ToDoList {
     }
 
     /**
-     * Unmarks a task, setting it as incomplete.
+     * Sets a task as incomplete
      *
      * @param taskNo The index of the task to be unmarked.
      * @throws SahejException If the task number is out of range.
@@ -99,7 +99,7 @@ public class ToDoList {
         }
     }
     /**
-     * Searches for tasks that have name as a prt of their name. This function is not case sensitive,
+     * Searches for tasks that have name as a part of their name. This function is not case sensitive,
      *
      * @param name The keyword to search for in task names.
      * @return A list of formatted task strings that match the search query.
